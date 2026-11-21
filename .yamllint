@@ -1,0 +1,10 @@
+extends: default
+
+rules:
+  document-start: disable
+  # Pinned action SHAs make some `uses:` lines longer than 80 characters.
+  line-length:
+    max: 100
+  # GitHub Actions uses `on:` as a key, which is not a boolean.
+  truthy:
+    check-keys: false

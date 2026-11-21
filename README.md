@@ -5,7 +5,7 @@ A from-scratch implementation of a **flat-file grid spatial index** for fast ran
 No GIS libraries, no databases — just a custom on-disk index (`grid.dir` + `grid.grd`) and the search algorithms that exploit it, written in pure Python.
 
 [![CI](https://github.com/ChristosGoulas/Spatial_Data_Searching/actions/workflows/ci.yml/badge.svg)](https://github.com/ChristosGoulas/Spatial_Data_Searching/actions/workflows/ci.yml)
-![Python](https://img.shields.io/badge/python-3.9%2B-blue)
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Why this exists
@@ -53,6 +53,8 @@ tests/               # pytest suite: grid results validated against brute force
 ```
 
 ## Getting started
+
+Requires Python 3.11 or newer.
 
 ```bash
 git clone https://github.com/ChristosGoulas/Spatial_Data_Searching.git
@@ -107,7 +109,25 @@ flake8 .       # lint
 mypy .         # type-check
 ```
 
-CI runs the full lint + test suite on every push via GitHub Actions (`.github/workflows/ci.yml`).
+To run the security scan separately, install the security extra and run Semgrep:
+
+```bash
+python -m pip install -e '.[security]'
+semgrep scan --config auto --error
+```
+
+The automatic rules are downloaded from the Semgrep registry, and `--error`
+makes findings fail the command.
+
+CI (`.github/workflows/ci.yml`) runs on pushes and pull requests to `main` with
+three jobs:
+
+- **lint** — `flake8`, `black --check`, and `yamllint` once on Linux.
+- **test** — `mypy` and `pytest` across Linux, macOS, and Windows on Python
+  3.11–3.12.
+- **security** — the Semgrep scan inside the official `semgrep/semgrep`
+  container. Results are uploaded as SARIF, so findings appear in the
+  repository's **Security → Code scanning** tab and on pull requests.
 
 ## Possible extensions
 
@@ -118,4 +138,3 @@ CI runs the full lint + test suite on every push via GitHub Actions (`.github/wo
 ## License
 
 MIT — see [LICENSE](LICENSE).
-

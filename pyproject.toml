@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "spatial-data-searching"
 version = "0.1.0"
 description = "Grid-based spatial index for fast range and k-NN queries over 2D point data"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = { text = "MIT" }
 readme = "README.md"
 
@@ -19,6 +19,10 @@ dev = [
 	"flake8-pyproject>=1.2.3",
 	"mypy>=1.9.0",
 	"pytest>=8.0.0",
+	"yamllint>=1.38.0",
+]
+security = [
+	"semgrep>=1.186.0",
 ]
 
 [tool.setuptools]
@@ -26,7 +30,7 @@ py-modules = ["grid", "sp_queries", "knn_grid", "knn_bruteforce"]
 
 [tool.black]
 line-length = 88
-target-version = ['py39']
+target-version = ['py311']
 
 [tool.flake8]
 max-line-length = 88
